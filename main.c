@@ -10,22 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "so_long.h"
 
 
 int	main(int ac, char **av)
 {
-	char	*str;
-	int fd;
+	int len_arg;
+	t_data data;
 
 	if (ac != 2)
 		return (0);
-	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
+	if ((len_arg = ft_strlen(av[1])) < 4)
 		return (0);
-	while ((str = get_next_line(fd)) != NULL)
-		printf("ligne = %s\n", str);
-	close(fd);
-	free(str);
-	return (0);
+	if ((ft_strnstr(av[1], ".ber", len_arg) == 0)
+		&& (ft_strnstr(av[1], ".ber", len_arg) + 4 != len_arg))
+		return(0);
+	map(ac, av, &data);
 }
