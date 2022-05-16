@@ -1,13 +1,16 @@
 CC		=	gcc
-NAME	=	pipex
+NAME	=	so_long
 FLAGS	=	-Wall -Wextra -Werror -g
 
-INC		=	pipex.h
+INC		=	so_long.h
 OBJ		=	objs
 OBJS	=	$(addprefix $(OBJ)/, $(SRCS:.c=.o))
-SRCS 	=	get_next_line/get_next_line.c		\
-			get_next_line/get_next_line_utils.c \
-			main.c
+SRCS 	=	main.c				\
+			ft_check_map.c		\
+			ft_split.c			\
+			ft_utils.c			\
+			map.c				\
+			exit.c				\
 
 $(NAME): $(OBJ) $(OBJS)
 	$(CC) $(FLAGS) -o $(NAME) $(OBJS)

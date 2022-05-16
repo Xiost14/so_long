@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thsamina <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 15:01:21 by thsamina          #+#    #+#             */
-/*   Updated: 2022/05/12 15:01:23 by thsamina         ###   ########.fr       */
+/*   Created: 2022/05/16 15:12:10 by thsamina          #+#    #+#             */
+/*   Updated: 2022/05/16 15:12:15 by thsamina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(int ac, char **av)
+void    ft_exit(t_data *data)
 {
-	t_data data;
-
-	if (map(ac, av, &data) == 0)
-	{
-		printf("pas");
-		ft_exit(&data);
-	}
-	ft_exit(&data);
-	return (0);
+    free(data->map_done);
+    printf("marche\n");
+    exit(1);
 }
