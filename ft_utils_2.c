@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_utils_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thsamina <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 15:01:21 by thsamina          #+#    #+#             */
-/*   Updated: 2022/05/12 15:01:23 by thsamina         ###   ########.fr       */
+/*   Created: 2022/05/23 15:58:18 by thsamina          #+#    #+#             */
+/*   Updated: 2022/05/23 15:58:20 by thsamina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/so_long.h"
 
-int	main(int ac, char **av)
+char	*ft_strchr(const char *s, int c)
 {
-	t_data data;
+	char	*res;
 
-	if (ac == 2)
+	res = (char *)s;
+	while (*res)
 	{
-		if (check_arg(av[1]))
-			ft_error("Argument is not a correct .ber file.\n");
-		create_map(&data, av[1]);
-		struc_init(&data);
-		check_map(&data);
-	//init_player
-	//init_window
-	//init_image
-	//render
-	//loop
-	//destroy
-	//free_fin
+		if (*res == (char)c)
+			return (res);
+		res++;
 	}
-	return (0);
+	if (*res != (char)c)
+		return (NULL);
+	return (res);
 }

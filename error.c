@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thsamina <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 15:01:21 by thsamina          #+#    #+#             */
-/*   Updated: 2022/05/12 15:01:23 by thsamina         ###   ########.fr       */
+/*   Created: 2022/05/23 15:29:14 by thsamina          #+#    #+#             */
+/*   Updated: 2022/05/23 15:29:16 by thsamina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/so_long.h"
 
-int	main(int ac, char **av)
+void	ft_putchar_fd(char c, int fd)
 {
-	t_data data;
+	write(fd, &c, 1);
+}
 
-	if (ac == 2)
+void	ft_putstr_fd(char *s, int fd)
+{
+	if (s)
 	{
-		if (check_arg(av[1]))
-			ft_error("Argument is not a correct .ber file.\n");
-		create_map(&data, av[1]);
-		struc_init(&data);
-		check_map(&data);
-	//init_player
-	//init_window
-	//init_image
-	//render
-	//loop
-	//destroy
-	//free_fin
+		while (*s)
+		{
+			ft_putchar_fd(*s, fd);
+			s++;
+		}
 	}
-	return (0);
+}
+
+void	ft_error(char *str, t_data *data)
+{
+	if (data->map_done)
+		ft_free(data->map_done);
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(str, 2);
+	exit(1);
 }

@@ -1,110 +1,70 @@
-#include "so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thsamina <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/23 15:04:49 by thsamina          #+#    #+#             */
+/*   Updated: 2022/05/23 15:04:50 by thsamina         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	ft_strlen(char *str)
-{
-	int c;
+#include "include/so_long.h"
 
-	c = 0;
-	while (str[c])
-		c++;
-	return (c);
-}
-
-char	*ft_strnstr(const char *big, const char *little, size_t len)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	if (!*little)
-	{
-		return ((char *)big);
-	}
-	if (len < 1)
-		return (NULL);
-	while (big[i] && i < len)
-	{
-		j = 0;
-		while (big[i + j] == little[j] && i + j < len && big[i + j])
-		{
-			j++;
-			if (!little[j])
-				return ((char *)(big + i));
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-char	*ft_strjoin(char *left_str, char *buff)
+void	ft_free(char **tab)
 {
 	size_t	i;
-	size_t	j;
-	char	*str;
-
-	if (!left_str)
-	{
-		left_str = (char *)malloc(1 * sizeof(char));
-		left_str[0] = '\0';
-	}
-	if (!left_str || !buff)
-		return (NULL);
-	str = malloc(sizeof(char) * ((ft_strlen(left_str) + ft_strlen(buff)) + 1));
-	if (str == NULL)
-		return (NULL);
-	i = -1;
-	j = 0;
-	if (left_str)
-		while (left_str[++i] != '\0')
-			str[i] = left_str[i];
-	while (buff[j] != '\0')
-		str[i++] = buff[j++];
-	str[ft_strlen(left_str) + ft_strlen(buff)] = '\0';
-	free(left_str);
-	return (str);
-}
-
-char	*ft_strchr(char *str, int c)
-{
-	int		i;
 
 	i = 0;
-	if (!str)
-		return (NULL);
-	if (c == '\0')
-		return ((char *)&str[ft_strlen(str)]);
-	while (str[i] != '\0')
+	while (tab[i])
 	{
-		if (str[i] == (char) c)
-			return ((char *)&str[i]);
+		free(tab[i]);
 		i++;
 	}
-	return (NULL);
+	free(tab);
+	tab = NULL;
+	return ;
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+size_t	ft_strlen(const char *str)
 {
-	char			*new;
-	unsigned int	i;
+	int	i;
 
-	if (!s)
-		return (NULL);
-	if ((unsigned int)ft_strlen((char *)s) < len)
-		len = (unsigned int)ft_strlen((char *)s);
 	i = 0;
-	new = (char *)malloc(sizeof(char) * len + 1);
-	if (!new)
-		return (NULL);
-	if (start > (unsigned int)ft_strlen((char *)s))
-	{
-		new[i] = '\0';
-		return (new);
-	}
-	while (i < len && s[start + i])
-	{
-		new[i] = s[start + i];
+	while (str[i])
 		i++;
-	}
-	new[i] = '\0';
-	return (new);
+	return (i);
+}
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	size_t			i;
+	unsigned char	*res;
+
+	res = (unsigned char *)b;
+	i = 0;
+	while (i < len)
+	{
+		res[i] = (unsigned char) c;
+		i++;
+	}	
+	return (res);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	if (n > 0)
+		ft_memset(s, '\0', n);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*res;
+
+	res = malloc(count * size);
+	if (!res)
+		return (NULL);
+	ft_bzero(res, size * count);
+	return (res);
 }

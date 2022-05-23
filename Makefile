@@ -2,7 +2,7 @@ CC		=	gcc
 NAME	=	so_long
 FLAGS	=	-Wall -Wextra -Werror -g
 
-INC		=	so_long.h
+INC		=	include/so_long.h
 OBJ		=	objs
 OBJS	=	$(addprefix $(OBJ)/, $(SRCS:.c=.o))
 SRCS 	=	main.c				\

@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "include/so_long.h"
 
 char	*generate_map(char *str)
 {
@@ -95,29 +95,42 @@ int	map(int ac, char **av, t_data *data)
 {
 	char *check_ber;
 	int	len_arg;
-	char *str;
 
 	if (ac != 2)
-		return (0);
-	if ((len_arg = ft_strlen(av[1])) < 4)
-		return (0);
-	if ((check_ber = ft_strnstr(av[1], ".ber", len_arg)) == NULL)
-		return (0);
-	if ((check_ber = ft_strnstr(check_ber, ".ber", 4)) == NULL)
-		return (0);
-	str = generate_map(av[1]);
-	if (str == NULL)
 	{
-		free(str);
-		return (0);
+		ft_putstr("Error\nwrong number of argument\n");
+		exit(1);
 	}
-	data->len_y = get_len_y(str);
-	data->len_x = get_len_x(str, data->len_y);
+	if ((len_arg = ft_strlen(av[1])) < 4)
+	{
+		ft_putstr("Error\nwrong file\n");
+		exit(1);
+	}
+	if ((check_ber = ft_strnstr(av[1], ".ber", len_arg)) == NULL)
+	{
+		ft_putstr("Error\nwrong file : no file.ber\n");
+		exit(1);
+	}
+	if ((check_ber = ft_strnstr(check_ber, ".ber", 4)) == NULL)
+	{
+		ft_putstr("Error\nwrong file : does not finish whits .ber\n");
+		exit(1);
+	}
+	data->str = generate_map(av[1]);
+	if (data->str == NULL)
+	{
+		ft_putstr("Error\ngeneration map error\n");
+		free(data->str);
+		exit(1);
+	}
+	data->len_y = get_len_y(data->str);
+	data->len_x = get_len_x(data->str, data->len_y);
 	if (data->len_x == 0)
-		return(0);
-	data->map_done = ft_split(str, '\n');
-	free(str);
-	if (ft_check_map(data->map_done, data->len_x, data->len_y) == 0)
-		return (1);
+	{
+		ft_putstr("Error\ninvalide map : map carrer\n");
+		exit(1);
+	}
+	data->map_done = ft_split(data->str, '\n');
+	ft_check_map(data->map_done, data->len_x, data->len_y);
 	return (0);
 }
