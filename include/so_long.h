@@ -14,6 +14,11 @@
 # define ERROR -1
 # define BUFFER_SIZE 1024
 # define IMG_SIZE 48
+# define GROUND "xpm/ground.xpm"
+# define PLAYER "xpm/player.xpm"
+# define EXIT "xpm/exit.xpm"
+# define COIN "xpm/coin.xpm"
+# define WALL "xpm/wall.xpm"
 
 typedef struct s_data	t_data;
 struct			s_data
@@ -29,6 +34,8 @@ struct			s_data
 	char	*path_arg;
 	int		i;
 	int		j;
+	int		player_y;
+	int		player_x;
 	int		count_p;
 	int		count_e;
 	int		count_c;
@@ -39,6 +46,14 @@ struct			s_data
 	int		height;
 	int		win_width;
 	int		width;
+
+	void	*mlx;
+	void	*win;
+	void	*wall;
+	void	*exit;
+	void	*coin;
+	void	*player;
+	void	*ground;
 };
 /*
 //ft_utils
@@ -87,5 +102,14 @@ void	struc_init(t_data *data);
 
 //check_map
 int	check_map(t_data *data);
+
+//get_player
+void	get_player(t_data *data);
+
+//init_window
+void	init_window(t_data *data);
+
+//init_image
+void	init_image(t_data *data);
 
 #endif

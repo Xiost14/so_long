@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_player.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thsamina <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 15:01:21 by thsamina          #+#    #+#             */
-/*   Updated: 2022/05/12 15:01:23 by thsamina         ###   ########.fr       */
+/*   Created: 2022/05/24 11:49:39 by thsamina          #+#    #+#             */
+/*   Updated: 2022/05/24 11:49:41 by thsamina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/so_long.h"
 
-int	main(int ac, char **av)
+void	get_player(t_data *data)
 {
-	t_data data;
+	int i;
+	int j;
 
-	if (ac == 2)
+	i = 0;
+	j = -1;
+	while (data->map_done[++i])
 	{
-		if (check_arg(av[1]))
-			ft_error("Argument is not a correct .ber file.\n", &data);
-		create_map(&data, av[1]);
-		struc_init(&data);
-		check_map(&data);
-		get_player(&data);
-		init_window(&data);
-		init_image(&data);
-		render(&data);
-	//loop
-	//destroy
-	//free_fin
+		while (data->map_done[i][++j])
+		{
+			if (data->map_done[i][j] == 'P')
+			{
+				data->player_y = i;
+				data->player_x = j;
+			}
+		}
+		j = 0;
 	}
-	return (0);
 }
